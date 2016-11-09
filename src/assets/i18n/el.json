@@ -1,0 +1,26 @@
+{
+  "shoppinglist": {
+    "header": "Λίστα με τα ψώνια",
+    "count": {
+      "one": "Έχεις 1 αντικείμενο",
+      "plural": "Έχεις {{count}} αντικείμενα"
+    }
+  },
+  "seasonals": {
+    "header": "Είδη εποχής"
+  },
+  "recipes": {
+    "dailyrecipe": "Συνταγή ημέρας",
+    "search": {
+      "header": "Ψάξε για συνταγή στο sintagespareas.gr",
+      "example": "π.χ. φασολάδα"
+    },
+    "count": {
+      "one": "Έχεις μία συνταγή",
+      "plural": "Έχεις {{count}} συνταγές"
+    }
+  },
+  "titles": {
+    "shoppinglist": "Λίστα με τα ψώνια"
+  }
+}

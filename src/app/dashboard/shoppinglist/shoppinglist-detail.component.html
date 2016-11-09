@@ -1,0 +1,9 @@
+<spinner [isRunning]="loading"></spinner>
+<md-grid-list cols="7">
+  <md-grid-tile *ngFor="let item of items" (click)="removeItem(item)">
+    <img src="{{item.image}}">
+    <md-grid-tile-footer>
+      {{item.name}}
+    </md-grid-tile-footer>
+  </md-grid-tile>
+</md-grid-list>
