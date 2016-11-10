@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {ApiService} from "../../services/api.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'recipes',
@@ -9,11 +10,14 @@ import {ApiService} from "../../services/api.service";
 })
 export class RecipesComponent {
   api: ApiService;
+  router: Router;
+  term: string = '';
   recipe: any = [];
   recipes: any = [];
 
-  constructor(api: ApiService) {
+  constructor(api: ApiService, router: Router) {
     this.api = api;
+    this.router = router;
     this.loadDailyRecipe();
     this.loadRecipes();
   }
@@ -30,9 +34,7 @@ export class RecipesComponent {
     });
   }
 
-  saveRecipe(recipe) {
-    this.api.addNewRecipe(recipe.title, recipe.link).subscribe(data => {
-      this.loadRecipes();
-    });
+  searchRecipe() {
+    this.router.navigate(['/recipe-search', this.term]);
   }
 }

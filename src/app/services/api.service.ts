@@ -147,4 +147,10 @@ export class ApiService {
       return this.recipeObservable;
     }
   }
+
+  searchRecipe(term) {
+    return this.http.get(this.apiEndpoint + '/recipes/' + term, {
+      headers: this.generateAuthHeaders()
+    }).map(res => res.json());
+  }
 }

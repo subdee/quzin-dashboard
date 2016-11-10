@@ -4,6 +4,7 @@ import {ShoppingListDetailComponent} from "./dashboard/shoppinglist/shoppinglist
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {RecipeViewComponent} from "./dashboard/recipes/recipeview.component";
 import {RecipesListComponent} from "./dashboard/recipes/recipeslist.component";
+import {RecipeSearchComponent} from "./dashboard/recipes/recipesearch.component";
 
 
 @NgModule({
@@ -11,8 +12,9 @@ import {RecipesListComponent} from "./dashboard/recipes/recipeslist.component";
     RouterModule.forRoot([
       {path: '', component: DashboardComponent},
       {path: 'shopping-list', component: ShoppingListDetailComponent},
-      {path: 'recipe/:url', component: RecipeViewComponent},
-      {path: 'recipes', component: RecipesListComponent}
+      {path: 'recipe/:title/:url', component: RecipeViewComponent},
+      {path: 'recipes', component: RecipesListComponent},
+      {path: 'recipe-search/:term', component: RecipeSearchComponent}
     ])
   ],
   exports: [
