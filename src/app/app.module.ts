@@ -22,6 +22,7 @@ import {CacheService} from "ng2-cache/src/services/cache.service";
 import {MomentModule} from "angular2-moment";
 import {RecipesListComponent} from "./dashboard/recipes/recipeslist.component";
 import {RecipeSearchComponent} from "./dashboard/recipes/recipesearch.component";
+import {ShoppingListItemsComponent} from "./dashboard/shoppinglist/shoppinglist-items.component";
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -37,6 +38,7 @@ export function createTranslateLoader(http: Http) {
     RecipesComponent,
     ShoppingListComponent,
     ShoppingListDetailComponent,
+    ShoppingListItemsComponent,
     SpinnerComponent,
     RecipeViewComponent,
     RecipesListComponent,

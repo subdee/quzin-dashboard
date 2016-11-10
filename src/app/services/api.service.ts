@@ -7,7 +7,7 @@ import {CacheService} from "ng2-cache/src/services/cache.service";
 export class ApiService {
   username: string = 'api';
   password: string = 'somerandomtoken';
-  apiEndpoint: string = 'http://localhost:8000/api';
+  apiEndpoint: string = 'http://quzin.subdee.org/api';
 
   dailyRecipeObservable: Observable<any>;
   seasonalsObservable: Observable<any>;
@@ -27,7 +27,7 @@ export class ApiService {
   }
 
   getAllItems() {
-    return this.http.get(this.apiEndpoint + '/items', {
+    return this.http.get(this.apiEndpoint + '/itemTypes', {
       headers: this.generateAuthHeaders()
     }).map(res => res.json());
   }

@@ -1,0 +1,12 @@
+<spinner [isRunning]="loading"></spinner>
+<div *ngFor="let type of itemTypes">
+  <h3>{{type.name}}</h3>
+  <md-grid-list cols="7">
+    <md-grid-tile *ngFor="let item of type.items" (click)="addToShoppingList(item)">
+      <img src="{{item.image}}">
+      <md-grid-tile-footer>
+        {{item.name}}
+      </md-grid-tile-footer>
+    </md-grid-tile>
+  </md-grid-list>
+</div>
