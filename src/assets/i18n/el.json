@@ -21,7 +21,8 @@
     }
   },
   "titles": {
-    "shoppinglist": "Λίστα με τα ψώνια"
+    "shoppinglist": "Λίστα με τα ψώνια",
+    "dashboard": "Quzin"
   },
   "snacks": {
     "recipe": {
