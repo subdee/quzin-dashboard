@@ -10,7 +10,7 @@
     "header": "Είδη εποχής"
   },
   "recipes": {
-    "dailyrecipe": "Συνταγή ημέρας",
+    "header": "Συνταγές",
     "search": {
       "header": "Ψάξε για συνταγή στο sintagespareas.gr",
       "example": "π.χ. φασολάδα"

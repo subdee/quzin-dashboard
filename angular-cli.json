@@ -21,7 +21,9 @@
         "styles.scss",
         "theme.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/moment/min/locales.min.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

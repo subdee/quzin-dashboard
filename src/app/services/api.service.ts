@@ -7,10 +7,13 @@ import {CacheService} from "ng2-cache/src/services/cache.service";
 export class ApiService {
   username: string = 'api';
   password: string = 'somerandomtoken';
-  apiEndpoint: string = 'http://quzin.subdee.org/api';
+  apiEndpoint: string = 'http://localhost:8000/api';
 
   dailyRecipeObservable: Observable<any>;
   seasonalsObservable: Observable<any>;
+  weatherObservable: Observable<any>;
+  shoppingListObservable: Observable<any>;
+  recipeObservable: Observable<any>;
 
   constructor(public http: Http, private cacheService: CacheService) {
     this.cacheService.setGlobalPrefix('quzin');
@@ -24,31 +27,47 @@ export class ApiService {
   }
 
   getAllItems() {
-    return this.http.get(this.apiEndpoint + '/recipes', {
+    return this.http.get(this.apiEndpoint + '/items', {
       headers: this.generateAuthHeaders()
     }).map(res => res.json());
   }
 
   getShoppingList() {
-    return this.http.get(this.apiEndpoint + '/shoppingList', {
+    let data: any|null = this.cacheService.get('shoppinglist');
+    if (data) {
+      return Observable.of(data);
+    } else if (this.shoppingListObservable) {
+      return this.shoppingListObservable;
+    } else {
+      this.shoppingListObservable = this.http.get(this.apiEndpoint + '/shoppingList', {
       headers: this.generateAuthHeaders()
-    }).map(res => res.json());
+      }).map(res => {
+        this.shoppingListObservable = null;
+        let result = res.json();
+        this.cacheService.set('shoppinglist', result, {maxAge: 60 * 60});
+        return result;
+      }).share();
+      return this.shoppingListObservable;
+    }
   }
 
   saveToShoppingList(id) {
+    this.cacheService.remove('shoppinglist');
     return this.http.post(this.apiEndpoint + '/shoppingList/' + id, [], {
       headers: this.generateAuthHeaders()
     }).map(res => res.json());
   }
 
   removeFromShoppingList(id) {
+    this.cacheService.remove('shoppinglist');
     return this.http.delete(this.apiEndpoint + '/shoppingList/' + id, {
       headers: this.generateAuthHeaders()
     }).map(res => res.json());
   }
 
-  addNewItem(name) {
-    return this.http.post(this.apiEndpoint + '/recipes', {name: name}, {
+  addNewRecipe(title, url) {
+    this.cacheService.remove('recipes');
+    return this.http.put(this.apiEndpoint + '/recipes', {title: title, url: url}, {
       headers: this.generateAuthHeaders()
     }).map(res => res.json());
   }
@@ -73,9 +92,22 @@ export class ApiService {
   }
 
   getWeather() {
-    return this.http.get(this.apiEndpoint + '/weather', {
+    let data: any|null = this.cacheService.get('weather');
+    if (data) {
+      return Observable.of(data);
+    } else if (this.weatherObservable) {
+      return this.weatherObservable;
+    } else {
+      this.weatherObservable = this.http.get(this.apiEndpoint + '/weather', {
       headers: this.generateAuthHeaders()
-    }).map(res => res.json());
+      }).map(res => {
+        this.weatherObservable = null;
+        let result = res.json();
+        this.cacheService.set('weather', result, {maxAge: 30 * 60});
+        return result;
+      }).share();
+      return this.weatherObservable;
+    }
   }
 
   getDailyRecipe() {
@@ -98,8 +130,21 @@ export class ApiService {
   }
 
   getRecipes() {
-    return this.http.get(this.apiEndpoint + '/recipes', {
+    let data: any|null = this.cacheService.get('recipes');
+    if (data) {
+      return Observable.of(data);
+    } else if (this.recipeObservable) {
+      return this.recipeObservable;
+    } else {
+      this.recipeObservable = this.http.get(this.apiEndpoint + '/recipes', {
       headers: this.generateAuthHeaders()
-    }).map(res => res.json());
+      }).map(res => {
+        this.recipeObservable = null;
+        let result = res.json();
+        this.cacheService.set('recipes', result, {maxAge: 6 * 60 * 60});
+        return result;
+      }).share();
+      return this.recipeObservable;
+    }
   }
 }

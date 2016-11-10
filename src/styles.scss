@@ -53,6 +53,21 @@ md-grid-tile-footer {
   font-family: Roboto, sans-serif;
 }
 
+.md-list-item {
+  height: 48px !important;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.recipe-title {
+  font-size: 14px !important;
+}
+
+.recipe-time {
+  font-size: 10px !important;
+}
+
 .wrapper {
   display: flex;
   flex-flow: row wrap;

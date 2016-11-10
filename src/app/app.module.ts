@@ -19,6 +19,8 @@ import {SpinnerComponent} from "./spinner/spinner.component";
 import {RecipeViewComponent} from "./dashboard/recipes/recipeview.component";
 import {SafePipe} from "./pipes/safe.pipe";
 import {CacheService} from "ng2-cache/src/services/cache.service";
+import {MomentModule} from "angular2-moment";
+import {RecipesListComponent} from "./dashboard/recipes/recipeslist.component";
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -36,6 +38,7 @@ export function createTranslateLoader(http: Http) {
     ShoppingListDetailComponent,
     SpinnerComponent,
     RecipeViewComponent,
+    RecipesListComponent,
     SafePipe
   ],
   imports: [
@@ -48,7 +51,8 @@ export function createTranslateLoader(http: Http) {
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
       deps: [Http]
-    })
+    }),
+    MomentModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "el-GR"},

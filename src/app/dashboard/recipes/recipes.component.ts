@@ -8,15 +8,31 @@ import {ApiService} from "../../services/api.service";
   providers: [ApiService]
 })
 export class RecipesComponent {
+  api: ApiService;
   recipe: any = [];
   recipes: any = [];
 
   constructor(api: ApiService) {
-    api.getDailyRecipe().subscribe(data => {
+    this.api = api;
+    this.loadDailyRecipe();
+    this.loadRecipes();
+  }
+
+  loadDailyRecipe() {
+    this.api.getDailyRecipe().subscribe(data => {
       this.recipe = data;
     });
-    api.getRecipes().subscribe(data => {
+  }
+
+  loadRecipes() {
+    this.api.getRecipes().subscribe(data => {
       this.recipes = data;
-    })
+    });
+  }
+
+  saveRecipe(recipe) {
+    this.api.addNewRecipe(recipe.title, recipe.link).subscribe(data => {
+      this.loadRecipes();
+    });
   }
 }
