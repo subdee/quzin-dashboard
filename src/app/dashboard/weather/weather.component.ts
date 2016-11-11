@@ -39,5 +39,8 @@ export class WeatherComponent {
         this.forecast = data.forecast;
         this.darkSkyReady = true;
       });
+    Observable.interval(1000).subscribe(() => {
+      this.today = Date.now();
+    });
   }
 }

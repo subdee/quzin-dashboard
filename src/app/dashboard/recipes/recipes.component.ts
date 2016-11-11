@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {ApiService} from "../../services/api.service";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'recipes',
@@ -20,6 +21,7 @@ export class RecipesComponent {
     this.router = router;
     this.loadDailyRecipe();
     this.loadRecipes();
+    this.startPolling();
   }
 
   loadDailyRecipe() {
@@ -36,5 +38,12 @@ export class RecipesComponent {
 
   searchRecipe() {
     this.router.navigate(['/recipe-search', this.term]);
+  }
+
+  startPolling() {
+    Observable.interval(21600000).mergeMap(() => this.api.getDailyRecipe())
+      .subscribe(data => {
+        this.recipe = data;
+      });
   }
 }

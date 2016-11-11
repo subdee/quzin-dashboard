@@ -1,5 +1,5 @@
 <md-card>
-  <md-card-title>{{today | date}}</md-card-title>
+  <md-card-title>{{today | date: 'medium'}}</md-card-title>
   <md-card-content class="weather-items" *ngIf="darkSkyReady">
     <skycons [type]="iconType"></skycons>
     <span class="temperature">{{temperature|number: '1.0-0'}}&deg;C</span>
