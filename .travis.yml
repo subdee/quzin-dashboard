@@ -1,0 +1,28 @@
+sudo: required
+language: node_js
+services:
+- docker
+before_install:
+- docker login --email=$DOCKER_HUB_EMAIL --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
+- openssl aes-256-cbc -K $encrypted_b9327cf9da7a_key -iv $encrypted_b9327cf9da7a_iv
+  -in deploy_key.enc -out ./deploy_key -d
+before_script:
+- npm install -g angular-cli
+- npm install
+- ng build --prod
+script:
+- docker build -t quzin-dashboard .
+- docker tag quzin-dashboard:latest $DOCKER_HUB_USERNAME/quzin-dashboard:latest
+- docker push $DOCKER_HUB_USERNAME/quzin-dashboard:latest
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: chmod 600 deploy_key && ssh -o StrictHostKeyChecking=no -i deploy_key subdee@quzin.subdee.org './deploy.sh'
+  on:
+    branch: master
+env:
+  global:
+  - secure: RQLUJqzVbLzqLmH0lFyco1K4O8Jfrso4NkRj3Yr59525Wjj4tJ0VH4V3vFTo6yjcMHAqgr0ua+fQpdyMTR0JsfX7I8AAswzuJCeCh2DLBJlY6u2lfxicTZd+aLL68MhwkAJJdoJNaikKG5kRznu75I7JQs3EgFtF+H98SurREzM9J9O8g6xG5rIkmxJgkpCWGBgzXtDWIFJl6GpwRVBhFl9bKUj4C9djuMRUpmanrt8/zPFw0NLoiMQQBy6eJM6gdFaC4ypDfOjmHhOMBN3bQ4tOlN16DaDil0kMf8Egx2DwflEyzzJS79CadG72eDgsfkRMsOtB3wO+rdd79C+6p0axPWYv9A94uTM12yeDHJv8TlRIugtHGqJhB9IxNo9bnvGnu8YJJWhXiyhV/OswMy0NmayGSo/xh+IiP8NOdfH2/HmnLRbWzSevYuyLmL+2jXoyhQxdx5YjsDEF8HWEbcCzX1jq4G8NyO66iyUC1Urpw6YR82q1O7jZqKo3q7HOEsVXDaWEQNCDse6X5cG5xHyR2O9HFMjeWckU6ljsqEo9uOY4zmTeCcSeFb0PPQA2allTHHb7ac4c4mfQSdcBsQ2J0FS6tXYk85bCRIp6qn8fnklRwp+sNa/mvxwG0xc/MjqFiGTNfOO5AuIQ/4RfOyWozX/vE/XvSAkIpi/ld9c=
+  - secure: O056/wswks/+PxevrjC0wnoeCeRe6Z+AQvyj5Hn5NIbqRIS/Yp29Byi3tYx+MFedDzy0a1DuSUnlkwU0UvCGvhT/ciAqq9P4usDDBqZgeHROtz4x4IC66r5VlddH5DorlFOey2UsBLCIhd+QcWdZ4U6H8m06nGTyyJ/we5CZedJi5WL/1EzZJI/5WspLxDJYBc73csnlbIreTOWIW5BSVUV+sVIndPAfSriPkYnvmfSkg8yLxceUvtp+/5Wtm2IMZ8BBtxoTLkebUDIXyopDLYO7oVIm5zXbKEb4PGij/S8AH2VbrnjZIuMzmFoIohOtlvZ/esVYuWagGgjbigttmJrDMtlQKb88k4+74TrLTPjapyE9sKmzpm2bYg05H7dmtn1LHKTbmdoT4HsKL/k/FdroLCu5YbPRVbIdACJvdy4ohmkRYfZlGirRu1OdvU01sfkiHIXIRRZtpWdGoUXF7TADhqHMsEwRuj1PNOXuxRZXMpgRMeB3/jETHj+KfkLWbrFwjyCyg3kt2GsRXzdipMYzrU1IBXKfLx+BZAtqBoAgvcNyisoC9ZLswyEtVrNx02tBl4zreSLT8wKDfGHMrOIexmZUYkmNtaDQHhmV+MONVdAgGKXvCFFroty8zOunK1byo9brfkDsiaJuGBFsk4I3y2cyUk5TxcLXDPkcggw=
+  - secure: PwQ0wDDwC0V83gEQ86y209Hbf1A3PS9pc5n/G6fkwJw1LJaq1A8BWUHLwG7R3PClNSrz2wcLiPjEd8E5a7+hT0Lpo+XR6//Q8ym6BT2xDBieD+6ejMXtm9Vhm9yOzuDfKIFiJJ2CZPMGXsrEJNxMHcsVSV/tNcoJ7m18VddRLhFPAh3RZ8ZAx87rOKkPt7K5pVqlSG8P3VvIWOwx4dVHAqLBmQ/bfkxnal4KyxDZvwNKhexbAjQ82kEtRfxTeSxI8NfVPFYYcQZTzrVsb0QJLHw/jpf8FnX9GEdz6pNdcCT+Rno7s/PG+ogoT5MqdQzoJS8/Nkdl8neDNmPrYd+X6HjRxmTJPRddQd3W19vHeYFtKUyDOT8Lz+VjKqF4dovvJdws/dmP/sdNcJxhVe4Y2rwjtxpVxz0JuoFQA/2vRi4A0tddY88Kc46OpDPOn2cwUaLKZQ2pEgZfshwPl8ftYarUjYSqVqSmzSaIJFRIEQ+Ri3y5+nnKIJj6+Iy1KuCGPZcpyNE2pKgC5oayDCCoUCtNvBaZpit3uSnkaCwpjmLBFMQgVuL3rvSh3B5qEx4WqTMxAEUpoXw503Nhqm0o+ZVTtSqNe0+z+R0wByUfhgsLj/KpEE7JHEGjDh5A6h0Y1RBBjqzT6Q6HJCbLd1jQT2+GCHKxhJNruFKz/wtcqpk=
+
