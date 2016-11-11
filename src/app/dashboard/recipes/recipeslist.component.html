@@ -1,5 +1,5 @@
 <md-list dense>
-  <md-list-item *ngFor="let recipe of recipes" [routerLink]="['/recipe', recipe.link]">
+  <md-list-item *ngFor="let recipe of recipes" [routerLink]="['/recipe', recipe.title, recipe.link]">
     <h3 md-line class="recipe-title"> {{recipe.title}} </h3>
     <p md-line class="recipe-time">
       <span>{{recipe.savedOn|timeAgo}} </span>
