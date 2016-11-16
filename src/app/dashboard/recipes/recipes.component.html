@@ -7,7 +7,7 @@
     </button>
     <hr>
     <p>{{'recipes.search.header'|translate}}</p>
-    <md-input placeholder="{{'recipes.search.example'|translate}}" [(ngModel)]="term"></md-input>
+    <md-input placeholder="{{'recipes.search.example'|translate}}" [(ngModel)]="term" (click)="displayKeyboard()"></md-input>
     <button md-icon-button (click)="searchRecipe()">
       <md-icon class="md-24">search</md-icon>
     </button>

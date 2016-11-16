@@ -1,0 +1,24 @@
+.row {
+  display: block;
+  text-align: center;
+  margin: 40px 0;
+  padding: 10px;
+}
+
+.row .key {
+  background: transparent;
+  border:  2px solid #3A7193;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  font-size:2em;
+  padding: 10px;
+  margin: 10px;
+}
+
+.keyboard-footer {
+  text-align: center;
+  color: white;
+  font-size: 1.5em;
+}
+

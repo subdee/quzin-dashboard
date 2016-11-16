@@ -1,0 +1,13 @@
+<div class="keyboard">
+  <div class="row" *ngFor="let row of layout">
+    <a class="key" *ngFor="let key of row.keys" (click)="addLetter(key)">{{key}}</a>
+  </div>
+  <div class="row">
+    <a class="key" (click)="removeLetter()">{{'keyboard.delete'|translate}}</a>
+    <a class="key" (click)="addSpace()">{{'keyboard.space'|translate}}</a>
+    <a class="key" (click)="close()">{{'keyboard.done'|translate}}</a>
+  </div>
+</div>
+<div class="keyboard-footer">
+  <h3>{{text}}</h3>
+</div>

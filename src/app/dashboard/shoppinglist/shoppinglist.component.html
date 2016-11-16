@@ -3,9 +3,9 @@
   <md-card-content>
     <p>{{ items.length|i18nPlural: {'=1': 'shoppinglist.count.one', 'other':
       'shoppinglist.count.plural'}|translate:{count: items.length} }}</p>
-    <a md-icon-button color="primary" routerLink="/shopping-list">
+    <button md-icon-button color="primary" routerLink="/shopping-list">
       <md-icon class="md-24">visibility</md-icon>
-    </a>
+    </button>
     <button md-icon-button color="accent" routerLink="/items">
       <md-icon class="md-24">add_circle</md-icon>
     </button>

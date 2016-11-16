@@ -23,6 +23,7 @@ import {RecipesListComponent} from "./dashboard/recipes/recipeslist.component";
 import {RecipeSearchComponent} from "./dashboard/recipes/recipesearch.component";
 import {ShoppingListItemsComponent} from "./dashboard/shoppinglist/shoppinglist-items.component";
 import {TimeAgoPipe} from "./pipes/timeago.pipe";
+import {KeyboardComponent} from "./keyboard/keyboard.component";
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -43,6 +44,7 @@ export function createTranslateLoader(http: Http) {
     RecipeViewComponent,
     RecipesListComponent,
     RecipeSearchComponent,
+    KeyboardComponent,
     SafePipe,
     TimeAgoPipe
   ],
@@ -63,7 +65,7 @@ export function createTranslateLoader(http: Http) {
     {provide: MissingTranslationHandler, useClass: QuzinMissingTranslationHandler},
     CacheService
   ],
-  entryComponents: [],
+  entryComponents: [KeyboardComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

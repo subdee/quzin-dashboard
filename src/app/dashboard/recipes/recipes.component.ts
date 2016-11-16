@@ -1,7 +1,9 @@
 import {Component} from "@angular/core";
 import {ApiService} from "../../services/api.service";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable} from "rxjs/Observable";
+import {MdDialogRef, MdDialog} from "@angular/material";
+import {KeyboardComponent} from "../../keyboard/keyboard.component";
 
 @Component({
   selector: 'recipes',
@@ -15,8 +17,9 @@ export class RecipesComponent {
   term: string = '';
   recipe: any = [];
   recipes: any = [];
+  dialogRef: MdDialogRef<KeyboardComponent>;
 
-  constructor(api: ApiService, router: Router) {
+  constructor(api: ApiService, router: Router, public dialog: MdDialog) {
     this.api = api;
     this.router = router;
     this.loadDailyRecipe();
@@ -45,5 +48,13 @@ export class RecipesComponent {
       .subscribe(data => {
         this.recipe = data;
       });
+  }
+
+  displayKeyboard() {
+    this.dialogRef = this.dialog.open(KeyboardComponent);
+    this.dialogRef.afterClosed().subscribe(result => {
+      this.term = result;
+      this.dialogRef = null;
+    })
   }
 }

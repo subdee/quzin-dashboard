@@ -1,4 +1,4 @@
-import {Component, ViewContainerRef} from "@angular/core";
+import {Component} from "@angular/core";
 import {ApiService} from "../../services/api.service";
 import {TranslateService} from "ng2-translate";
 import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
@@ -13,12 +13,10 @@ export class ShoppingListItemsComponent {
   loading: boolean;
   api: ApiService;
   snackBar: MdSnackBar;
-  viewContainerRef: ViewContainerRef;
 
-  constructor(api: ApiService, private translateService: TranslateService, snackBar: MdSnackBar, viewContainerRef: ViewContainerRef) {
+  constructor(api: ApiService, private translateService: TranslateService, snackBar: MdSnackBar) {
     this.api = api;
     this.snackBar = snackBar;
-    this.viewContainerRef = viewContainerRef;
     this.loadItems();
   }
 
@@ -31,7 +29,7 @@ export class ShoppingListItemsComponent {
   }
 
   addToShoppingList(item) {
-    let config = new MdSnackBarConfig(this.viewContainerRef);
+    let config = new MdSnackBarConfig();
     this.api.saveToShoppingList(item.id).subscribe(data => {
       if (data.success) {
         this.translateService.get('snacks.shoppinglist.saved').subscribe((res: string) => {
