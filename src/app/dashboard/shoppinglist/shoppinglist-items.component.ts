@@ -30,6 +30,7 @@ export class ShoppingListItemsComponent {
 
   addToShoppingList(item) {
     let config = new MdSnackBarConfig();
+    config.duration = 3000;
     this.api.saveToShoppingList(item.id).subscribe(data => {
       if (data.success) {
         this.translateService.get('snacks.shoppinglist.saved').subscribe((res: string) => {

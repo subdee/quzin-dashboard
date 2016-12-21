@@ -35,6 +35,7 @@ export class RecipeViewComponent implements OnInit, OnDestroy {
 
   saveRecipe() {
     let config = new MdSnackBarConfig();
+    config.duration = 3000;
     this.api.addNewRecipe(this.title, this.url).subscribe(data => {
       if (data.success) {
         this.translateService.get('snacks.recipe.saved').subscribe((res: string) => {
